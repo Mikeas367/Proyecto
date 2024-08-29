@@ -2,7 +2,7 @@ import app from './app.js'
 import {sequelize} from './database/database.js'
 
 
-const port = 3000
+const port = 3001
 
 async function main() {
     try {
