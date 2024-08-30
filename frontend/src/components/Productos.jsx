@@ -1,30 +1,28 @@
 import { useState, useEffect } from "react";
 import {Link} from 'react-router-dom';
-import axios from "axios";
+import { deleteProducto, getProductos } from "../services/productos.service";
 
 function Productos(){
     const [productos, setProductos] = useState(null)
 
     useEffect(()=>{
-        getProductos()
-    })
+        fetchProductos()
+    },[])
 
-    const getProductos = async ()=>{
-        const productosDatos = await axios.get("http://localhost:3001/productos")
-        setProductos(productosDatos.data)
+    const fetchProductos = async ()=>{
+        const productosDatos = await getProductos()
+        setProductos(productosDatos)
     }
 
-    const deleteProducto = async (id) => {
-        if (window.confirm("¿Esta seguro de eliminar el producto?")){
-            await axios.delete(`http://localhost:3001/productos/${id}`)
-            getProductos()
-        }
+    const handleDeleteProducto = async (id) => {
+      await deleteProducto(id)
+      fetchProductos()
     }
 
     return (
         <div className="text-start">
           <h1 className="text-center">Listado De Productos</h1>
-          <table className="table mt-5">
+          <table className="table mt-5 table-striped">
             <thead className="table-dark">
               <tr>
                 <th>Descripcion</th>
@@ -32,6 +30,7 @@ function Productos(){
                 <th>Precio de Venta</th>
                 <th>Stock</th>
                 <th>Acciones</th>
+                <th><Link className="btn text-white" to='/productos/0'><i className="bi bi-plus-circle"></i> Nuevo Producto</Link></th>
               </tr>
             </thead>
             <tbody>
@@ -44,9 +43,12 @@ function Productos(){
                       <td>{p.precio_unitario}</td>
                       <td>{p.stock}</td>
                       <td>
-                        <button className="btn btn-default" onClick={() => deleteProducto(p.id)} >
+                        <button className="btn btn-default" onClick={() => handleDeleteProducto(p.id)} >
                           <i className="bi bi-trash text-danger"></i>
                         </button>
+                        <Link className="btn btn-default" to={`/productos/${p.id}`} >
+                        <i className="bi bi-pencil text-primary"></i>
+                        </Link>
                       </td>
                     </tr>
                   );
