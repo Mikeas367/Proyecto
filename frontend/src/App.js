@@ -5,6 +5,7 @@ import Inicio from "./components/Inicio";
 import Productos from "./components/Productos";
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import Producto from "./components/Producto";
+import Venta from "./components/venta";
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
           <Route path='/' element={<Inicio></Inicio>} />
           <Route path="/productos" element={<Productos/>} />
           <Route path="/productos/:id" element={<Producto/>}/>
+          <Route path="/nueva-venta" element={<Venta/>}></Route>
         </Routes>
       </div>
     </>

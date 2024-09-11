@@ -9,7 +9,7 @@ function Productos(){
         fetchProductos()
     },[])
 
-    const fetchProductos = async ()=>{
+    const fetchProductos = async () =>{
         const productosDatos = await getProductos()
         setProductos(productosDatos)
     }
@@ -20,42 +20,46 @@ function Productos(){
     }
 
     return (
-        <div className="text-start">
-          <h1 className="text-center">Listado De Productos</h1>
-          <table className="table mt-5 table-striped">
-            <thead className="table-dark">
-              <tr>
-                <th>Descripcion</th>
-                <th>Precio de Compra</th>
-                <th>Precio de Venta</th>
-                <th>Stock</th>
-                <th>Acciones</th>
-                <th><Link className="btn text-white" to='/productos/0'><i className="bi bi-plus-circle"></i> Nuevo Producto</Link></th>
+      <div className="container my-5 p-4 bg-light rounded shadow-sm">
+      <h1 className="text-center mb-4 text-primary">Listado De Productos</h1>
+      <div className="table-responsive">
+        <table className="table table-hover align-middle">
+          <thead className="table-primary text-white">
+            <tr>
+              <th>Descripción</th>
+              <th>Precio de Compra</th>
+              <th>Precio de Venta</th>
+              <th>Stock</th>
+              <th>Acciones</th>
+              <th>
+                <Link className="btn btn-success text-white" to='/productos/0'>
+                  <i className="bi bi-plus-circle me-2"></i>Nuevo Producto
+                </Link>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {productos && productos.map((p) => (
+              <tr key={p.id} className="align-middle">
+                <td>{p.descripcion}</td>
+                <td>{p.precio_compra}</td>
+                <td>{p.precio_unitario}</td>
+                <td>{p.stock}</td>
+                <td>
+                  <button className="btn btn-outline-danger me-2" onClick={() => handleDeleteProducto(p.id)}>
+                    <i className="bi bi-trash"></i>
+                  </button>
+                  <Link className="btn btn-outline-primary" to={`/productos/${p.id}`}>
+                    <i className="bi bi-pencil"></i>
+                  </Link>
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {productos &&
-                productos.map((p) => {
-                  return (
-                    <tr key={p.id}>
-                      <td>{p.descripcion}</td>
-                      <td>{p.precio_compra}</td>
-                      <td>{p.precio_unitario}</td>
-                      <td>{p.stock}</td>
-                      <td>
-                        <button className="btn btn-default" onClick={() => handleDeleteProducto(p.id)} >
-                          <i className="bi bi-trash text-danger"></i>
-                        </button>
-                        <Link className="btn btn-default" to={`/productos/${p.id}`} >
-                        <i className="bi bi-pencil text-primary"></i>
-                        </Link>
-                      </td>
-                    </tr>
-                  );
-                })}
-            </tbody>
-          </table>
-        </div>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
       )
 }
 

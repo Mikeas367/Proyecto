@@ -19,7 +19,6 @@ export const getProducto = async(id) => {
 }
 
 
-
 export const createProducto = async (data) => {
     const response = await axios.post(URL, data);
     return response.data;
