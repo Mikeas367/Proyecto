@@ -1,26 +1,22 @@
+import { useState, useEffect } from "react";
 import {Link} from 'react-router-dom';
-import { deleteProducto} from "../services/productos.service";
-import { useFetch } from "../hooks/useFetch.ts";
+import { deleteProducto, getProductos } from "../services/productos.service";
 
-const URL = 'http://localhost:3001/productos'
+function Productos2(){
+    const [productos, setProductos] = useState(null)
 
-function Productos(){
-  const { data: productos, loading, error, refetch} = useFetch(URL)
-  
-  if(loading){
-    return(
-      <div className="loader-container">
-          <div className="loader">Cargando Datos...</div>
-      </div>
-    )
-  }
+    useEffect(()=>{
+        fetchProductos()
+    },[])
 
-  if(error){
-    return(<h2>UPS! Error al encontrar los datos: {error.message}</h2>)
-  }
+    const fetchProductos = async () =>{
+        const productosDatos = await getProductos()
+        setProductos(productosDatos)
+    }
+
     const handleDeleteProducto = async (id) => {
       await deleteProducto(id)
-      refetch()
+      fetchProductos()
     }
 
     return (
@@ -67,4 +63,4 @@ function Productos(){
       )
 }
 
-export default Productos
+export default Productos2

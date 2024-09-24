@@ -9,7 +9,12 @@ export const getProductos = async ()=>{
 
 export const deleteProducto = async (id) => {
     if (window.confirm("¿Esta seguro de eliminar el producto?")){
-        await axios.delete(`${URL}/${id}`)
+        try {
+            await axios.delete(`${URL}/${id}`)    
+        } catch (error) {
+            alert("Error al eliminar el producto")
+        }
+        
     }
 }
 

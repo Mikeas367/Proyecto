@@ -6,7 +6,7 @@ import Productos from "./components/Productos";
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import Producto from "./components/Producto";
 import Venta from "./components/venta";
-
+//import Productos2 from "./components/Productos2";
 
 function App() {
   return (
